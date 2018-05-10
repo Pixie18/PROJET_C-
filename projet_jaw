@@ -1,0 +1,11 @@
+les signaux:
+•clicked() de la classe QPushButton pour l’acces` a l’ ` ev´ enement des boutons. ` •error(QAbstractSocket::SocketError) de la classe TcpSocket pour detecter une ´ erreur lors de la phase de connexion au serveur •connected() de la classe QTcpSocket pour detecter l’ ´ etablissement de la connexion ´ avec le serveur. •readyRead() de la classe QTcpSocket pour detecter la pr ´ esence de paquet dans le ´ buffer d’entree de la socket. ´ •newMessage(QString) de la classe client pour notifier la classe MainWindow qu’il y a un message ` a afficher. Il s’agit d’un signal cr ` e´e pour l’application.
+
+— Les liaisons signal/slot a` etablir dans l’application sont: ´
+ •clicked() de la classe QPushButton se lie aux slot SendMessage() du controleur et ˆ Disconnect() de la classe Client. 
+•error(QAbstractSocket::SocketError) de la classe TcpSocket se lie au slot RetryOpenSocket() de la classe Client 
+•connected() de la classe QTcpSocket se lie au slot SendName() de la classe Client. •readyRead() de la classe QTcpSocket se lie au slot ReadPackets() de la classe client. •newMessage(QString) de la classe Client se lie au slot UpdateChat(QString) de la classe MainWindow
+
+
+Une boucle doit etre utilis ˆ ee dans ce code. Laquelle et pourquoi 
+Par securit ´ e la boucle doit it ´ erer sur le buffer d’entr ´ ee de la socket. ´ Sans elle, on peut oublier de traiter des paquets qui arriveraient simultanement o ´ u qui ` auraient et´ e signal ´ es par le m ´ eme signal. Une boucle ˆ while peut tres bien faire l’affaire.
